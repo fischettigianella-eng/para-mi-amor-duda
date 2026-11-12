@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8e9ec">
+<title>Para Duda, com amor ♡</title>
+<style>
+  :root{
+    --pink:#f7e5e9; --pink2:#edc5cf; --rose:#bd788b;
+    --deep:#795563; --sage:#829783; --sage2:#dce7da;
+    --cream:#fffaf7; --ink:#66515a;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; color:var(--ink); font-family:Georgia,"Times New Roman",serif;
+    background:linear-gradient(180deg,#fbf0f1 0%,#f8f1e9 48%,#edf2e9 100%);
+    overflow-x:hidden;
+  }
+  button{font:inherit; cursor:pointer}
+  .screen{
+    min-height:100svh; padding:36px 20px; display:flex; align-items:center;
+    justify-content:center; position:relative; isolation:isolate;
+  }
+  .wrap{width:min(100%,560px); text-align:center; position:relative; z-index:2}
+  .eyebrow{font:11px/1.5 Arial,sans-serif; letter-spacing:.22em; text-transform:uppercase;color:#8b9a83}
+  h1,h2{font-weight:normal; line-height:1.18; color:var(--deep)}
+  h1{font-size:clamp(2.6rem,10vw,4.7rem); margin:15px 0}
+  h2{font-size:clamp(2rem,7vw,3rem); margin:10px 0 18px}
+  p{font-size:1.08rem; line-height:1.8}
+  .subtitle{max-width:390px;margin:0 auto 28px;color:#846d75}
+  .btn{
+    border:1px solid #d9aab7; border-radius:999px; padding:14px 25px;
+    background:#bd788b;color:white; box-shadow:0 8px 20px #bd788b2b;
+    transition:transform .2s,background .2s;
+  }
+  .btn:hover{transform:translateY(-2px);background:#a9677a}
+  .btn.secondary{background:#fffaf7;color:var(--deep)}
+  .tiny{font:12px/1.6 Arial,sans-serif;color:#947f85}
+  .flower{position:absolute;opacity:.55;pointer-events:none;z-index:0}
+  .flower svg{width:100%;height:100%}
+  .f1{width:115px;left:-15px;top:9%}.f2{width:100px;right:-12px;bottom:12%;transform:rotate(35deg)}
+  .f3{width:65px;right:9%;top:12%;opacity:.3}
+  .petal{animation:sway 5s ease-in-out infinite;transform-origin:50% 70%}
+  @keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+  .floating{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+  .float{position:absolute;bottom:-30px;color:#c88b9b;opacity:0;animation:rise linear infinite}
+  @keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.55}85%{opacity:.45}100%{transform:translateY(-110vh) rotate(35deg);opacity:0}}
+  .card{
+    background:#fffaf7d9;border:1px solid #ead4d5;border-radius:28px;
+    padding:clamp(24px,6vw,42px);box-shadow:0 18px 55px #80616c12;
+    backdrop-filter:blur(8px);
+  }
+  .divider{color:#b47c8a;letter-spacing:.5em;margin:20px 0}
+  .memory-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:26px 0}
+  .memory{
+    background:#f8e9e9;border:1px solid #ecd5d7;border-radius:18px;padding:20px 12px;
+    min-height:130px;display:flex;flex-direction:column;justify-content:center;gap:9px;
+  }
+  .memory span{font-size:25px}.memory small{font:12px/1.5 Arial,sans-serif;color:#806c72}
+  .letter{ text-align:left; white-space:normal }
+  .letter p{font-size:1rem;line-height:1.9;margin:0 0 17px}
+  .signature{text-align:right;color:#a66e80;font-style:italic;font-size:1.2rem;margin-top:24px}
+  .envelope{
+    width:170px;height:115px;margin:25px auto 20px;position:relative;
+    background:#e9c4cc;border-radius:8px;box-shadow:0 12px 25px #8b64731b;
+    cursor:pointer;transition:transform .25s;
+  }
+  .envelope:hover{transform:translateY(-4px)}
+  .envelope:before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(145deg,transparent 49%,#d9aab5 50%) left,
+               linear-gradient(215deg,transparent 49%,#d9aab5 50%) right;
+    background-size:50% 100%;background-repeat:no-repeat;
+  }
+  .flap{
+    position:absolute;top:0;left:0;width:0;height:0;border-left:85px solid transparent;
+    border-right:85px solid transparent;border-top:68px solid #f0d5da;
+    transform-origin:top;transition:transform .65s;z-index:3;
+  }
+  .seal{position:absolute;z-index:4;top:49px;left:72px;color:white;font-size:25px}
+  .envelope.open .flap{transform:rotateX(180deg)}
+  .letter-panel{display:none;margin-top:22px;animation:appear .7s ease both}
+  .letter-panel.show{display:block}
+  @keyframes appear{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  .music{
+    display:inline-flex;align-items:center;gap:9px;border:1px solid #d8c4bb;
+    background:#fffaf7;color:#765c65;border-radius:999px;padding:11px 17px;
+    font:13px Arial,sans-serif;margin-top:15px;
+  }
+  .music .dot{width:8px;height:8px;background:#93a58e;border-radius:50%}
+  .question{font-size:clamp(2.1rem,8vw,3.7rem)}
+  .answers{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .yes{background:#bd788b}.maybe{background:#fffaf7;color:#795563;border:1px solid #dfc5cb}
+  .hidden{display:none!important}
+  .final-note{margin-top:25px;padding:20px;border-radius:20px;background:#f7e9e9;animation:appear .6s ease both}
+  .footer{font:11px Arial,sans-serif;color:#9a858b;margin-top:30px}
+  .stars{font-size:24px;letter-spacing:.5em;color:#a8b69d;margin:18px 0}
+  @media(max-width:390px){.memory-grid{grid-template-columns:1fr}.screen{padding:28px 16px}}
+  @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="floating" id="floating"></div>
+
+<section class="screen" id="home">
+  <div class="flower f1"><svg viewBox="0 0 120 140"><g class="petal" fill="#d9a8b3"><ellipse cx="60" cy="28" rx="13" ry="25"/><ellipse cx="60" cy="28" rx="13" ry="25" transform="rotate(60 60 70)"/><ellipse cx="60" cy="28" rx="13" ry="25" transform="rotate(120 60 70)"/></g><circle cx="60" cy="70" r="12" fill="#d9bd83"/><path d="M60 82 Q54 112 68 138" fill="none" stroke="#829783" stroke-width="4"/></svg></div>
+  <div class="flower f2"><svg viewBox="0 0 120 140"><g fill="#e0b8c0"><ellipse cx="60" cy="28" rx="13" ry="25"/><ellipse cx="60" cy="28" rx="13" ry="25" transform="rotate(60 60 70)"/><ellipse cx="60" cy="28" rx="13" ry="25" transform="rotate(120 60 70)"/></g><circle cx="60" cy="70" r="12" fill="#d9bd83"/><path d="M60 82 Q54 112 68 138" fill="none" stroke="#829783" stroke-width="4"/></svg></div>
+  <div class="flower f3"><svg viewBox="0 0 100 100"><path d="M50 95 Q42 45 12 15 M50 95 Q60 50 90 20" stroke="#829783" stroke-width="3" fill="none"/><ellipse cx="25" cy="30" rx="10" ry="22" fill="#9eaf99" transform="rotate(-40 25 30)"/><ellipse cx="75" cy="38" rx="10" ry="22" fill="#9eaf99" transform="rotate(40 75 38)"/></svg></div>
+  <div class="wrap">
+    <div class="eyebrow">uma pequena surpresa para você</div>
+    <h1>Para Duda,<br><i>com amor</i> ♡</h1>
+    <p class="subtitle">Tem algo que faz tempo que quero te dizer. Preparei este cantinho pensando em você.</p>
+    <button class="btn" onclick="goTo('intro')">Abrir minha surpresa ♡</button>
+    <div class="footer">feito com amor, por Gia</div>
+  </div>
+</section>
+
+<section class="screen" id="intro">
+  <div class="wrap card">
+    <div class="eyebrow">da Gia para Duda</div>
+    <div class="stars">✧ ✿ ✧</div>
+    <h2>Um amor que encontrou seu próprio caminho</h2>
+    <p>Existem pessoas que chegam de formas inesperadas e, sem percebermos, se tornam uma parte muito especial dos nossos dias.</p>
+    <p>A distância ainda não nos permitiu estar no mesmo lugar, mas encontramos muitas maneiras de ficar pertinho.</p>
+    <button class="btn" onclick="goTo('garden')">Continuar lendo ♡</button>
+  </div>
+</section>
+
+<section class="screen" id="garden">
+  <div class="wrap card">
+    <div class="eyebrow">pequenas coisas que significam muito</div>
+    <h2>Nosso pequeno universo</h2>
+    <p>Porque, às vezes, estar perto também é...</p>
+    <div class="memory-grid">
+      <div class="memory"><span>🎧</span><strong>Compartilhar músicas</strong><small>E encontrar pedacinhos de nós nelas.</small></div>
+      <div class="memory"><span>🎬</span><strong>Assistir a filmes</strong><small>Mesmo que cada uma esteja no seu cantinho do mundo.</small></div>
+      <div class="memory"><span>🌙</span><strong>Conversar até tarde</strong><small>Quando uma conversa faz o tempo voar.</small></div>
+      <div class="memory"><span>📞</span><strong>Ver você pela tela</strong><small>Meus momentos favoritos são aqueles em que posso te ver e te ouvir.</small></div>
+    </div>
+    <p>E, mesmo que ainda faltem muitos abraços ao vivo, eu amo tudo o que estamos construindo.</p>
+    <button class="btn" onclick="goTo('envelope')">Tem algo que quero te contar ♡</button>
+  </div>
+</section>
+
+<section class="screen" id="envelope">
+  <div class="wrap">
+    <div class="eyebrow">uma carta para você</div>
+    <h2>Algumas palavras da Gia</h2>
+    <p class="subtitle">Toque no envelope para abri-lo. Leia tudo com carinho. ♡</p>
+    <div class="envelope" id="envelopeArt" role="button" tabindex="0" aria-label="Abrir la carta" onclick="openLetter()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLetter()}">
+      <div class="flap"></div><div class="seal">♡</div>
+    </div>
+    <div class="tiny" id="tapHint">Toque para abrir</div>
+    <div class="letter-panel card" id="letterPanel">
+      <div class="letter">
+        <p><strong>Minha Duda,</strong></p>
+        <p>Quem diria que tudo começaria com um simples jogo.</p>
+        <p>Nós nos conhecemos sem imaginar o quanto acabaríamos significando uma para a outra. Primeiro fomos amigas, depois começamos a compartilhar músicas, filmes, conversas intermináveis e tantos momentos que, mesmo através de uma tela, significavam muito para mim.</p>
+        <p>Nossa história não foi perfeita. Tivemos diferenças, brigas, momentos em que nos afastamos e até um período em que deixamos de compartilhar nossas vidas. Mas eu voltei porque sentia sua falta, porque havia algo em você que continuava me trazendo de volta.</p>
+        <p>E então começaram as videochamadas.</p>
+        <p>Acho que foi aí que me apaixonei de verdade. Quando pude ver você falando, ouvir sua voz, observar seus gestos e sentir que, mesmo com tantos quilômetros entre nós, eu podia ficar um pouquinho mais perto de você.</p>
+        <p>Percebi o quanto gostava de compartilhar meu tempo com você, o quanto nossas chamadas até tarde significavam para mim e como me fazia feliz simplesmente ter você do outro lado da tela.</p>
+        <p>Hoje sei que amo muito você. Quero continuar te conhecendo, compartilhando meus dias com você, aprendendo a te amar cada vez melhor e construindo algo lindo juntas.</p>
+        <p>Queria poder estar com você agora mesmo, te abraçar e dizer tudo isso olhando nos seus olhos. Mas sei que a distância não será para sempre e que um dia vamos poder viver todas essas coisas que hoje imaginamos.</p>
+        <p>Enquanto isso, quero continuar escolhendo você, construindo nossa história e tendo a oportunidade de chamar você de minha namorada.</p>
+        <p class="signature">Com muito amor,<br>Gia ♡</p>
+      </div>
+      <button class="btn" onclick="goTo('proposal')">Tem mais uma coisa que quero te perguntar…</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="proposal">
+  <div class="flower f1"><svg viewBox="0 0 120 140"><g fill="#d9a8b3"><ellipse cx="60" cy="28" rx="13" ry="25"/><ellipse cx="60" cy="28" rx="13" ry="25" transform="rotate(60 60 70)"/><ellipse cx="60" cy="28" rx="13" ry="25" transform="rotate(120 60 70)"/></g><circle cx="60" cy="70" r="12" fill="#d9bd83"/></svg></div>
+  <div class="wrap card">
+    <div class="eyebrow">e agora, minha pergunta</div>
+    <div class="stars">♡ ✿ ♡</div>
+    <h2 class="question">Duda, você quer namorar comigo?</h2>
+    <p>Quero continuar escolhendo você, hoje e em todos os dias que ainda virão.</p>
+    <div class="answers" id="answers">
+      <button class="btn yes" onclick="sayYes()">Sim, eu quero ♡</button>
+      <button class="btn maybe" onclick="sayYes()">É claro que sim ♡</button>
+    </div>
+    <div id="answer" class="final-note hidden">
+      <h2>Então é um sim ♡</h2>
+      <p>Quero que este seja o começo de uma fase ainda mais linda para nós duas.</p>
+      <p><strong>Eu te amo, Duda.</strong></p>
+      <div class="stars">✿ ♡ ✿</div>
+      <p class="tiny">Agora quero ver você e compartilhar esse momento com você. Vamos fazer uma videochamada?</p>
+    </div>
+    <div class="footer">dois corações, dois lugares, uma história ♡</div>
+  </div>
+</section>
+
+<script>
+  function goTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+  function openLetter(){
+    document.getElementById('envelopeArt').classList.add('open');
+    document.getElementById('letterPanel').classList.add('show');
+    document.getElementById('tapHint').textContent='Uma carta escrita especialmente para você ♡';
+  }
+  function sayYes(){
+    document.getElementById('answer').classList.remove('hidden');
+    document.getElementById('answers').classList.add('hidden');
+    burstHearts();
+    setTimeout(()=>document.getElementById('answer').scrollIntoView({behavior:'smooth',block:'center'}),100);
+  }
+  function burstHearts(){
+    const layer=document.getElementById('floating');
+    for(let i=0;i<34;i++){
+      const el=document.createElement('span');el.className='float';
+      el.textContent=['♡','✿','♥','✧'][Math.floor(Math.random()*4)];
+      el.style.left=(Math.random()*100)+'%';el.style.bottom='-25px';
+      el.style.animationDuration=(3+Math.random()*3)+'s';
+      el.style.fontSize=(14+Math.random()*18)+'px';layer.appendChild(el);
+      setTimeout(()=>el.remove(),6500);
+    }
+  }
+  const layer=document.getElementById('floating');
+  for(let i=0;i<14;i++){
+    const el=document.createElement('span');el.className='float';el.textContent=['♡','✿','✧'][i%3];
+    el.style.left=(Math.random()*100)+'%';el.style.animationDuration=(9+Math.random()*10)+'s';
+    el.style.animationDelay=(-Math.random()*18)+'s';el.style.fontSize=(12+Math.random()*12)+'px';
+    layer.appendChild(el);
+  }
+</script>
+</body>
+</html>
